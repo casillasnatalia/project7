@@ -1,7 +1,9 @@
 var screen = document.getElementById("screen")
 var namespace = "http://www.w3.org/2000/svg"
+var drawing = false;
 
-// utility function
+
+
 function transformPoint(event) {
   var pt = screen.createSVGPoint()
   pt.x = event.x
@@ -10,8 +12,7 @@ function transformPoint(event) {
   return mousept
 }
 
-// Step 2: drawSquare and drawCircle functions
-// square drawing code here
+
 function drawSquare(x, y, size, color) {
   var newSquare = document.createElementNS(namespace, "rect")
   newSquare.setAttribute("fill", color)
@@ -23,7 +24,8 @@ function drawSquare(x, y, size, color) {
 
 }
 
-// circle drawing code here
+
+
 function drawCircle(x, y, size, color) {
   var newCircle = document.createElementNS(namespace, "circle")
   newCircle.setAttribute("fill", color)
@@ -34,21 +36,21 @@ function drawCircle(x, y, size, color) {
 
 }
 
-// Step 3: Event listeners
+
 document.addEventListener("mousedown", function(e) {
   var pt = transformPoint(e)
-  // what do you want to do when the user presses down
-  // on the mouse button?
+drawing = true;
+
 })
 
 document.addEventListener("mouseup", function(e) {
   var pt = transformPoint(e)
+  drawing = false;
 })
-  // what do you want to do when the user presses down
-  // on the mouse button?
-  // step 4 mousemove event
- //1
+
+
 document.addEventListener("mousemove", function (e) {
+  if(drawing == true) {
   var pt = transformPoint(e)
   var xpos = pt.x
   var ypos = pt.y
@@ -63,4 +65,5 @@ document.addEventListener("mousemove", function (e) {
   else if (shapeSelect == "circle" ) {
     drawCircle(pt.x,pt.y,sizeSelect, colorSelect)
   }
+}
 })
